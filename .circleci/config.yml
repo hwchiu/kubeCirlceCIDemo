@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  test:
     machine: true
     steps:
       - checkout
@@ -17,6 +17,13 @@ jobs:
           name: start minikube
           command: |
             sudo minikube -v 9 start --vm-driver=none --bootstrapper=kubeadm --kubernetes-version=v1.10.0 --extra-config=apiserver.authorization-mode=RBAC
+  deploy:
+    docker:
+      - image: circleci/buildpack-deps:curl-browsers
+    steps:
+      - run:
+          name: hello
+          command: echo "deploy"
 
 
 workflows:
